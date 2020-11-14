@@ -1,17 +1,14 @@
 import java.util.*;
 import java.text.*;
+import java.util.function.Function;
 
-/**
- * Containing items and calculating price.
- */
 public class ShoppingCart {
     public static enum ItemType {NEW, REGULAR, SECOND_FREE, SALE}
 
     ;
 
-
     public static void main(String[] args) {
-// TODO: add tests here
+
         ShoppingCart cart = new ShoppingCart();
         cart.addItem("Apple", 0.99, 5, ItemType.NEW);
         cart.addItem("Banana", 20.00, 4, ItemType.SECOND_FREE);
@@ -20,15 +17,7 @@ public class ShoppingCart {
         System.out.println(cart.formatTicket());
     }
 
-    /**
-     * Adds new item.
-     *
-     * @param title    item title 1 to 32 symbols
-     * @param price    item ptice in USD, > 0
-     * @param quantity item quantity, from 1
-     * @param type     item type
-     * @throws IllegalArgumentException if some value is wrong
-     */
+
     public void addItem(String title, double price, int quantity, ItemType type) {
         if (title == null || title.length() == 0 || title.length() > 32)
             throw new IllegalArgumentException("Illegal title");
@@ -36,6 +25,7 @@ public class ShoppingCart {
             throw new IllegalArgumentException("Illegal price");
         if (quantity <= 0)
             throw new IllegalArgumentException("Illegal quantity");
+
         Item item = new Item();
         item.setTitle(title);
         item.setPrice(price);
@@ -45,40 +35,6 @@ public class ShoppingCart {
 
     }
 
-    /**
-     * Formats shopping price.
-     *
-     * @return string as lines, separated with \n,
-     * <p>
-     * first line: # Item
-     * Price Quan. Discount Total
-     * <p>
-     * second line: --------------------------------------------------------*
-     * next lines: NN Title
-     * $PP.PP Q
-     * DD% $TT.TT
-     * <p>
-     * 1 Some title
-     * $.30 2
-     * $.60
-     * <p>
-     * 2 Some very long
-     * $100.00 1
-     * 50% $50.00
-     * <p>
-     * ...
-     * <p>
-     * 31 Item 42
-     * $999.00 1000
-     * - $999000.00
-     * <p>
-     * end line: --------------------------------------------------------*
-     * last line: 31
-     * $999050.60
-     * <p>
-     * <p>
-     * if no items in cart returns "No items." string.
-     */
     public String formatTicket() {
         double total = calculateItemsParameters();
         return getFormattedTicketTable(total);
@@ -88,26 +44,14 @@ public class ShoppingCart {
     private String getFormattedTicketTable(double total) {
         if (items.size() == 0)
             return "No items.";
-        List<String[]> lines = new ArrayList<String[]>();
 
 
         String[] header = {"#", "Item", "Price", "Quan.", "Discount", "Total"};
         int[] align = new int[]{1, -1, 1, 1, 1, 1};
 // formatting each line
         int index = 0;
-        for (Item item : items) {
-
-            lines.add(new String[]{
-                    String.valueOf(++index),
-                    item.getTitle(),
-                    MONEY.format(item.getPrice()),
-                    String.valueOf(item.getQuantity()),
-                    (item.getDiscount() == 0) ? "-" : (String.valueOf(item.getDiscount()) + "%"),
-                    MONEY.format(item.getTotalPrice())
-            });
-            index++;
-        }
-        String[] footer = {String.valueOf(index), "", "", "", "",
+        List<String[]> lines = convertItemsToTableLines();
+        String[] footer = {String.valueOf(lines.size()), "", "", "", "",
                 MONEY.format(total)};
 // formatting table
 // column max length
@@ -137,6 +81,24 @@ public class ShoppingCart {
         // footer
         appendFormattedLine(sb, footer, align, width, false);
         return sb.toString();
+    }
+
+    private List<String[]> convertItemsToTableLines() {
+        List<String[]> lines = new ArrayList<String[]>();
+        int index = 0;
+        for (Item item : items) {
+
+            lines.add(new String[]{
+                    String.valueOf(++index),
+                    item.getTitle(),
+                    MONEY.format(item.getPrice()),
+                    String.valueOf(item.getQuantity()),
+                    (item.getDiscount() == 0) ? "-" : (String.valueOf(item.getDiscount()) + "%"),
+                    MONEY.format(item.getTotalPrice())
+            });
+
+        }
+        return lines;
     }
 
     private double calculateItemsParameters() {
@@ -180,12 +142,6 @@ public class ShoppingCart {
     }
 
 
-    /**
-     * Appends to sb formatted value.
-     * Trims string if its length > width.
-     *
-     * @param align -1 for align left, 0 for center and +1 for align right.
-     */
     public static void appendFormatted(StringBuilder sb, String value, int align, int width) {
         if (value.length() > width)
             value = value.substring(0, width);
@@ -209,7 +165,9 @@ public class ShoppingCart {
      * For each full 10 not NEW items item gets additional 1% discount,
      * but not more than 80% total
      */
+
     public static int calculateDiscount(ItemType type, int quantity) {
+
         int discount = 0;
         switch (type) {
             case NEW:
@@ -234,10 +192,6 @@ public class ShoppingCart {
         return discount;
     }
 
-
-    /**
-     * item info
-     */
     private static class Item {
         private String title;
         private double price;
@@ -295,9 +249,5 @@ public class ShoppingCart {
         }
     }
 
-
-    /**
-     * Container for added items
-     */
     private List<Item> items = new ArrayList<Item>();
 }
