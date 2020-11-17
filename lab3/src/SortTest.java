@@ -3,7 +3,7 @@ package com.company;
 public class SortTest {
 
     public static void main(String[] args) {
-/*
+
         FunList myList = new Cons(randInt());
         myList.Append(new Cons(randInt()));
         FunList cdr = myList.cdr();
@@ -12,28 +12,12 @@ public class SortTest {
             cdr.Append(new Cons(randInt()));
             cdr = cdr.cdr();
         }
-        System.out.println(myList.toString());
-        myList.sort();
-        System.out.println(myList.toString());
-*/
-        FunList myList = new Cons(1);
-        myList.Append(new Cons(2));
-        FunList cdr= myList.cdr();
 
-        cdr.Append(new Cons(8));
-        cdr= cdr.cdr();
 
-        cdr.Append(new Cons(12));
-        cdr= cdr.cdr();
-
-        cdr.Append(new Cons(5));
-        cdr= cdr.cdr();
-
-        cdr.Append(new Cons(3));
-        cdr= cdr.cdr();
-
-        System.out.println("Original list "+ myList.toString());
-        myList.insertInOrder(6);
+        System.out.println("Original list of random integers: "+ myList.toString());
+        int next = randInt();
+        System.out.println("Next random int: "+next);
+        myList.insertInOrder(next);
         System.out.println("List after insertion "+myList.toString());
 
 

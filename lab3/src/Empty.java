@@ -2,7 +2,7 @@ package com.company;
 
 /**
  * Mimics functional empty list.
- * @author Vyacheslav Moskalenko
+ * @author Oleksandr Khytrov
  * @since JDK1.4
  */
 public class Empty extends FunList

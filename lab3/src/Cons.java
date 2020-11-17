@@ -59,7 +59,7 @@ public class Cons extends FunList {
         FunList current = this;
         while (true)
         {
-            if (current instanceof  Empty)
+            if (current.cdr() instanceof  Empty)
                 break;;
 
                 if (current.car() <= i && current.cdr().car() >=i)
@@ -67,11 +67,12 @@ public class Cons extends FunList {
                     FunList tale = current.cdr();
                     current.Append(new Cons(i));
                     current.cdr().Append(tale);
-                    break;
+                    return;
                 }
             current = current.cdr();
 
         }
+        current.Append(new Cons(i));
 
     }
 
