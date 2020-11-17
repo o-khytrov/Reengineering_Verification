@@ -7,7 +7,14 @@
 public class Empty extends FunList
 {
 
+    /**
+     * Singleton instance
+     */
     private static Empty _instance = new Empty();
+
+    /**
+     * private constructor
+     */
     private Empty()
     {
 

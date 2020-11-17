@@ -1,3 +1,4 @@
+import org.junit.Ignore;
 import org.junit.jupiter.api.*;
 
 import static java.time.Duration.ofSeconds;
@@ -39,6 +40,7 @@ class UtilsJUnit5Test {
         System.out.println(factorialOf + "! = " +
                 Utils.computeFactorial(factorialOf));
     }
+
     @Test
     void testComputeFactorialWithTimeout() {
         assertTimeout(
@@ -64,7 +66,15 @@ class UtilsJUnit5Test {
                 "* Test method 3 is failed"
         );
     }
+
     @Test
     void normalizeWord() {
+    }
+
+    @Ignore
+    @Test
+    public void temporarilyDisabledTest() throws Exception {
+        System.out.println("* UtilsJUnit4Test: test method 4 – checkEx pectedException()");
+        assertEquals("Malm\u00f6", Utils.normalizeWord("Malmo\u0308"));
     }
 }

@@ -27,7 +27,7 @@ public class Account {
     }
 
     private double overdraftCharge() {
-        if (type== AccountType.premium) {
+        if (type == AccountType.premium) {
             double result = 10;
             if (getDaysOverdrawn() > 7)
                 result += (getDaysOverdrawn() - 7) * 1.0;
@@ -88,15 +88,17 @@ public class Account {
     }
 
     void withdraw(double sum, double discount) {
-        if (getMoney() < 0) {
-            // no discount for overdraft for not premium account
-            setMoney((getMoney() - sum) - sum * overdraftFee() * discount);
-        } else {
-            setMoney(getMoney() - sum);
-        }
+        setMoney((getMoney() - sum) - calculateOverdraft(sum, discount));
+
+    }
+
+    private double calculateOverdraft(double sum, double discount) {
+        if (getMoney() > 0)
+            return 0;
+        return sum * overdraftFee() * discount;
     }
 
     String getDescription() {
-        return  "Account: IBAN: " + getIban() + ", Money: " + getMoney();
+        return "Account: IBAN: " + getIban() + ", Money: " + getMoney();
     }
 }
