@@ -1,5 +1,9 @@
-package com.company;
 
+/**
+ * Entry point of the app
+ * @author Vyacheslav Moskalenko
+ * @since JDK1.4
+ */
 public class SortTest {
 
     public static void main(String[] args) {

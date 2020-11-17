@@ -1,14 +1,18 @@
-package com.company;
-
 /**
  * Mimics functional lists.
  * @author Moskalenko Vyacheslav
  * @since JDK1.4
  */
 public abstract class FunList {
-    
+
+    /**
+     * @return value of the current node
+     */
     public abstract int car();
-    
+
+    /**
+     * @return reference to the next node
+     */
     public abstract FunList cdr();
 
     public abstract FunList Append(FunList other);

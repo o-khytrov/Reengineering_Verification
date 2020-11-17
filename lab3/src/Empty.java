@@ -1,4 +1,3 @@
-package com.company;
 
 /**
  * Mimics functional empty list.
@@ -13,18 +12,32 @@ public class Empty extends FunList
     {
 
     }
+    /**
+     * Returns a singleton instance
+     * @return Empty
+     */
     public static   Empty UniqueInstance()
     {
         return  _instance;
     }
+
+
     public int car(){
         throw new java.util.NoSuchElementException("car requires a non Empty Funlist");
     }
-    
+
+    /**
+     *
+     * @return FunList
+     */
     public FunList cdr(){
         throw new java.util.NoSuchElementException("cdr requires a non Empty Funlist");
     }
-    
+
+    /**
+     *
+     * @return string representation
+     */
     String toStringHelp(){
         return "";
     }
@@ -39,6 +52,11 @@ public class Empty extends FunList
 
     }
 
+    /**
+     *
+     * @param other next note to append
+     * @return current node
+     */
     public FunList Append(FunList other)
     {
             return  this;

@@ -1,5 +1,3 @@
-package com.company;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -51,6 +49,9 @@ public class Cons extends FunList {
         return " " + _dat + _cdr.toStringHelp();
     }
 
+    /**
+     * @param i a value of the new element to be added
+     */
     @Override
     void insertInOrder(int i) {
 
@@ -76,6 +77,9 @@ public class Cons extends FunList {
 
     }
 
+    /**
+     * sort the fun list
+     */
     @Override
     public void sort() {
 
@@ -101,7 +105,9 @@ public class Cons extends FunList {
         }
     }
 
-
+    /**
+     * @param other new element to be added
+     */
     public FunList Append(FunList other) {
         this._cdr = other;
         return this;
